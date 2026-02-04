@@ -4,6 +4,9 @@
 
 A deep learning experiment testing whether transformer embeddings and self-attention can learn to predict the chaotic three-body problem in classical mechanics.
 
+**Authors:** Gustavo Brancante & GusIQ (AI Agent)  
+*A human + AI collaboration project*
+
 📄 **[Read the full research article →](ARTICLE.md)**
 
 ![Training Curves](results/training_curves.png)

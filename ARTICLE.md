@@ -1,8 +1,10 @@
 # Learning Gravitational Dynamics: A Transformer-Based Approach to the Three-Body Problem
 
-**Author:** Gustavo Brancante  
-**Date:** February 2025  
-**Repository:** [github.com/gusbrancante/three-body-transformer](https://github.com/gusbrancante/three-body-transformer)
+**Authors:** Gustavo Brancante & GusIQ (AI Agent)  
+**Date:** February 2026  
+**Repository:** [github.com/brancante/three-body-transformer](https://github.com/brancante/three-body-transformer)
+
+*This research is a human + AI collaboration: hypothesis by Gustavo Brancante, implementation and analysis by GusIQ.*
 
 ---
 
