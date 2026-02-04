@@ -4,6 +4,8 @@
 
 A deep learning experiment testing whether transformer embeddings and self-attention can learn to predict the chaotic three-body problem in classical mechanics.
 
+📄 **[Read the full research article →](ARTICLE.md)**
+
 ![Training Curves](results/training_curves.png)
 
 ## The Hypothesis
@@ -107,6 +109,95 @@ python main.py --visualize
 --n-layers N      Transformer layers (default: 4)
 ```
 
+## 🚀 Interactive Simulation
+
+Run predictions with the trained model using `simulate.py`:
+
+### Quick Start
+
+```bash
+# Run with famous figure-8 orbit
+python simulate.py --preset figure8 --steps 200
+
+# Try Lagrange triangle configuration
+python simulate.py --preset lagrange --steps 300
+
+# Chaotic initial conditions
+python simulate.py --preset chaotic --steps 500
+```
+
+### Custom Initial Conditions
+
+```bash
+# Via command line (positions and velocities as "x1,y1,z1;x2,y2,z2;x3,y3,z3")
+python simulate.py \
+    --positions "-1,0,0;0,0,0;1,0,0" \
+    --velocities "0,0.5,0;0,-0.5,0;0,0,0" \
+    --masses "1,1,1" \
+    --steps 200
+
+# Via JSON configuration file
+python simulate.py --config my_conditions.json
+```
+
+Example JSON config:
+```json
+{
+    "positions": [[-1, 0, 0], [0, 0, 0], [1, 0, 0]],
+    "velocities": [[0, 0.5, 0], [0, -0.5, 0], [0, 0, 0]],
+    "masses": [1.0, 1.0, 1.0]
+}
+```
+
+### Output Options
+
+```bash
+# Save trajectory to CSV
+python simulate.py --preset figure8 --output trajectory.csv
+
+# Save visualization
+python simulate.py --preset chaotic --plot results/my_simulation.png
+
+# Create animated GIF
+python simulate.py --preset lagrange --animate --gif-path orbit.gif
+
+# Output as JSON (for programmatic use)
+python simulate.py --preset figure8 --json --no-show
+```
+
+### Web Interface (Gradio)
+
+Launch an interactive web interface:
+
+```bash
+pip install gradio  # if not installed
+python simulate.py --web --port 7860
+```
+
+Then open `http://localhost:7860` in your browser.
+
+### Available Presets
+
+| Preset | Description | Type |
+|--------|-------------|------|
+| `figure8` | Chenciner-Montgomery figure-8 solution | Stable/Periodic |
+| `lagrange` | Equilateral triangle configuration | Stable/Periodic |
+| `chaotic` | Random seed 42 | Chaotic |
+| `chaotic2` | Random seed 123 | Chaotic |
+| `chaotic3` | Random seed 456 | Chaotic |
+
+### Simulation CLI Reference
+
+```
+usage: simulate.py [-h] [--preset PRESET] [--config CONFIG]
+                   [--positions POSITIONS] [--velocities VELOCITIES]
+                   [--masses MASSES] [--steps STEPS] [--no-compare]
+                   [--output OUTPUT] [--plot PLOT] [--animate]
+                   [--gif-path GIF_PATH] [--no-show] [--json]
+                   [--model MODEL] [--scaler SCALER] [--device DEVICE]
+                   [--web] [--port PORT]
+```
+
 ## Results
 
 ### Key Findings
@@ -131,7 +222,8 @@ python main.py --visualize
 
 ```
 three-body-transformer/
-├── main.py              # Main entry point
+├── main.py              # Main entry point (training pipeline)
+├── simulate.py          # Interactive simulation app ⭐
 ├── data_generator.py    # Synthetic trajectory generation
 ├── model.py             # Transformer architectures
 ├── dataset.py           # PyTorch dataset and loaders
@@ -140,6 +232,7 @@ three-body-transformer/
 ├── visualize.py         # Plotting utilities
 ├── requirements.txt     # Dependencies
 ├── README.md            # This file
+├── ARTICLE.md           # Full research article 📄
 ├── data/                # Generated trajectories
 ├── checkpoints/         # Trained models
 └── results/             # Evaluation outputs & plots
